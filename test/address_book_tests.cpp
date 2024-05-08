@@ -42,3 +42,12 @@ TEST_CASE("names are case insensitive") {
 	ab.remove_entry("Jane");
 	CHECK_FALSE(ab.has_entry("Jane"));
 }
+
+TEST_CASE("Sync") {
+	address_book ab;
+	file_synchronization_provider provider{"test/provider.txt"};
+	CHECK_FALSE(ab.has_entry("jane"));
+	// ab.add_entry("jane");
+	ab.synchronize(provider);
+	CHECK(ab.has_entry("jane"));
+}
